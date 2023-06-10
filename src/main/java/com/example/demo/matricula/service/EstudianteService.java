@@ -6,4 +6,7 @@ public interface EstudianteService {
 
 	
 	public void guardar(Estudiante estudiante);
+	public Estudiante buscarPorCedula(String cedula);
+	public void borrar(String cedula);
+	public void actualizar(Estudiante estudiante);
 }

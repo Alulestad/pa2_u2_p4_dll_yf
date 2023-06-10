@@ -2,12 +2,24 @@ package com.example.demo.matricula.repo.modelo;
 
 import org.springframework.stereotype.Component;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 @Component
+@Table(name = "estudiante", schema = "")
+@Entity
 public class Estudiante {
 	
+	@Id
+	@Column(name="estu_cedula")
 	private String cedula;
+	@Column(name="estu_nombre")
 	private String nombre;
+	@Column(name="estu_apellido")
 	private String apellido;
+
 	
 	//gets y sets
 	public String getCedula() {
