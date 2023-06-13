@@ -46,9 +46,10 @@ public class Pa2U2P4DllYfApplication implements CommandLineRunner {
 		CtaBancaria bancaria= new CtaBancaria();
 		bancaria.setCedula("1234124");
 		bancaria.setId(5);
+		bancaria.setNumero("12349876");
 		this.ctaBancariaService.actualizar(bancaria);
-		this.ctaBancariaService.consutarPorId(4);
-		
+		BigDecimal saldo= this.ctaBancariaService.consultarSaldoPorId(4);
+		System.out.println(saldo);
 		
 		
 	}

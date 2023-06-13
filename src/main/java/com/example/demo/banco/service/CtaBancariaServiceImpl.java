@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,13 @@ public class CtaBancariaServiceImpl implements ICtaBancariaService {
 
 	@Autowired
 	private ICtaBancariaRepo iCtaBancariaRepo;
+	
+	@Autowired
+	@Qualifier(value = "par")
+	private ICalcularSaldo iCalcularSaldoPar;
+	@Autowired
+	@Qualifier(value = "impar")
+	private ICalcularSaldo iCalcularSaldoImpar;
 	
 	@Override
 	public void aperturar(String numero, String tipo, BigDecimal saldo, String cedula) {
@@ -30,8 +38,10 @@ public class CtaBancariaServiceImpl implements ICtaBancariaService {
 		BigDecimal saldotemp=new BigDecimal(0);
 		if (date.getDayOfMonth()%2==0) {
 			//es par
-			saldotemp=saldo.add(saldo.multiply(new BigDecimal(0.05)));
+			saldotemp=this.iCalcularSaldoPar.calcular(saldo);
 			
+		}else {
+			saldotemp=this.iCalcularSaldoImpar.calcular(saldo);
 		}
 		bancaria.setSaldo(saldotemp);
 		
@@ -47,7 +57,7 @@ public class CtaBancariaServiceImpl implements ICtaBancariaService {
 	}
 
 	@Override
-	public BigDecimal consutarPorId(Integer id) {
+	public BigDecimal consultarSaldoPorId(Integer id) {
 		CtaBancaria bancaria=this.iCtaBancariaRepo.seleccionarPorId(id);
 		
 		return bancaria.getSaldo();
