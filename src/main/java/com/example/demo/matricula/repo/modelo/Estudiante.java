@@ -4,15 +4,26 @@ import org.springframework.stereotype.Component;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Component
-@Table(name = "estudiante", schema = "")
+@Table(name = "estudiante", schema = "public")
 @Entity
 public class Estudiante {
 	
 	@Id
+	@GeneratedValue(generator = "seq_estudiante",strategy = GenerationType.SEQUENCE)
+	//nombre del generador, estrategia : secuencia
+	
+	@SequenceGenerator(name="seq_estudiante", sequenceName = "seq_estudiante",allocationSize = 1)
+	//nombre cualquiera, nombre de la secuencia en la bd, el incremento
+	
+	@Column(name = "estu_id")
+	private Integer estu_id;
 	@Column(name="estu_cedula")
 	private String cedula;
 	@Column(name="estu_nombre")
@@ -22,9 +33,14 @@ public class Estudiante {
 
 	
 	//gets y sets
+	
 	public String getCedula() {
 		return cedula;
 	}
+	public Integer getEstu_id() {
+		return estu_id;
+	}
+
 	public void setCedula(String cedula) {
 		this.cedula = cedula;
 	}
@@ -42,8 +58,10 @@ public class Estudiante {
 	}
 	@Override
 	public String toString() {
-		return "Estudiante [cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + "]";
+		return "Estudiante [estu_id=" + estu_id + ", cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido
+				+ "]";
 	}
+
 	
 	
 
