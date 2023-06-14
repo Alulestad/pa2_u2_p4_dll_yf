@@ -17,12 +17,7 @@ import com.example.demo.matricula.service.EstudianteService;
 @SpringBootApplication
 public class Pa2U2P4DllYfApplication implements CommandLineRunner {
 
-	@Autowired
-	private EstudianteService estudianteService;
-	
-	
-	@Autowired
-	private ICtaBancariaService ctaBancariaService;
+
 	
 	public static void main(String[] args) {
 		SpringApplication.run(Pa2U2P4DllYfApplication.class, args);
@@ -33,23 +28,6 @@ public class Pa2U2P4DllYfApplication implements CommandLineRunner {
 		// TODO Auto-generated method stub
 		System.out.println("Unidad 2");
 		
-		Estudiante estudiante= new Estudiante();
-		estudiante.setApellido("Rivera");
-		estudiante.setCedula("766554");
-		estudiante.setNombre("Mabely");
-		
-		this.estudianteService.guardar(estudiante);
-		
-		
-		System.out.println("############BANCO##############");
-		this.ctaBancariaService.aperturar("1234", "A", new BigDecimal(100), "12341234");
-		CtaBancaria bancaria= new CtaBancaria();
-		bancaria.setCedula("1234124");
-		bancaria.setId(5);
-		bancaria.setNumero("12349876");
-		this.ctaBancariaService.actualizar(bancaria);
-		BigDecimal saldo= this.ctaBancariaService.consultarSaldoPorId(4);
-		System.out.println(saldo);
 		
 		
 	}
