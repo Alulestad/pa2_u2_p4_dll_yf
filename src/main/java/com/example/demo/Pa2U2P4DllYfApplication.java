@@ -12,10 +12,14 @@ import com.example.demo.banco.repo.IEmpleadoRepo;
 import com.example.demo.banco.repo.modelo.Ciudadano;
 import com.example.demo.banco.repo.modelo.CtaBancaria;
 import com.example.demo.banco.repo.modelo.Empleado;
+import com.example.demo.banco.repo.modelo.Habitacion;
+import com.example.demo.banco.repo.modelo.Hotel;
 import com.example.demo.banco.service.CtaBancariaServiceImpl;
 import com.example.demo.banco.service.ICiudadanoService;
 import com.example.demo.banco.service.ICtaBancariaService;
 import com.example.demo.banco.service.IEmpleadoService;
+import com.example.demo.banco.service.IHabitacionService;
+import com.example.demo.banco.service.IHotelService;
 import com.example.demo.matricula.repo.modelo.Estudiante;
 import com.example.demo.matricula.service.EstudianteService;
 
@@ -27,6 +31,12 @@ public class Pa2U2P4DllYfApplication implements CommandLineRunner {
 	
 	@Autowired
 	private IEmpleadoService iEmpleadoService;
+	
+	@Autowired
+	private IHabitacionService iHabitacionService;
+	
+	@Autowired
+	private IHotelService iHotelService;
 
 	
 	public static void main(String[] args) {
@@ -49,7 +59,7 @@ public class Pa2U2P4DllYfApplication implements CommandLineRunner {
 		empl1.setCiudadano(this.iCiudadanoService.buscaraPorId(Integer.valueOf(1)));
 		empl1.setSueldo(new BigDecimal(1000));
 		
-		//ciu1.setEmpleado(empl1);
+		ciu1.setEmpleado(empl1);
 		
 		
 		this.iCiudadanoService.agregar(ciu1);
@@ -58,14 +68,46 @@ public class Pa2U2P4DllYfApplication implements CommandLineRunner {
 		this.iCiudadanoService.buscaraPorId(Integer.valueOf(1));
 		
 
-		
+		/*
 		this.iEmpleadoService.agregar(empl1);
 		empl1.setCargo("Vice presidente ejecutivo");
 		this.iEmpleadoService.actualizar(empl1);
 		this.iEmpleadoService.buscarPorId(Integer.valueOf(1));
+		*/
 		
-		this.iCiudadanoService.borrarPorId(Integer.valueOf(1));
-		this.iEmpleadoService.borrarPorId(Integer.valueOf(1));
+		//this.iCiudadanoService.borrarPorId(Integer.valueOf(3));
+		
+		//this.iEmpleadoService.borrarPorId(Integer.valueOf(1));
+		
+		Hotel hotel1=new Hotel();
+		hotel1.setDireccion("direcccion1");
+		hotel1.setNombre("nombre1");
+		
+		Habitacion habitacion1= new Habitacion();
+		habitacion1.setHotel(hotel1);
+		habitacion1.setNumero("1");
+		habitacion1.setValor(new BigDecimal(12));
+		
+		Habitacion habitacion2= new Habitacion();
+		habitacion2.setHotel(hotel1);
+		habitacion2.setNumero("2");
+		habitacion2.setValor(new BigDecimal(15));
+		
+		
+		this.iHotelService.agregar(hotel1);
+		hotel1.setDireccion("direcccion1_Act");
+		this.iHotelService.actualizar(hotel1);
+		this.iHotelService.buscarPorId(2);
+		//this.iHotelService.borrarPorId(1);
+		
+		this.iHabitacionService.agregar(habitacion1);
+		habitacion1.setNumero("111");
+		this.iHabitacionService.actualizar(habitacion1);
+		this.iHabitacionService.buscarPorId(1);
+		
+		this.iHabitacionService.agregar(habitacion2);
+		this.iHabitacionService.borrarPorId(2);
+		
 		
 	}
 

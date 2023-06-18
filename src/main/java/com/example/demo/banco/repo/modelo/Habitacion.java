@@ -3,6 +3,9 @@ package com.example.demo.banco.repo.modelo;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.hibernate.annotations.Comment;
+import org.springframework.stereotype.Component;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,7 +16,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
-@Table(name = "habitacion")
+@Component
+@Table(name = "habitacion",schema = "public")
 @Entity
 public class Habitacion {
 

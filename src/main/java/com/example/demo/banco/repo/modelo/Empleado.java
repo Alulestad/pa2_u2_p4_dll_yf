@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import org.springframework.stereotype.Component;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +17,7 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Component
-@Table(name = "empleado")
+@Table(name = "empleado",schema = "public")
 @Entity
 public class Empleado {
 	@Id
@@ -29,7 +30,7 @@ public class Empleado {
 	@Column(name = "empl_cargo")
 	private String cargo;
 
-	@OneToOne()
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="empl_ciudadano_id")
 	private Ciudadano ciudadano;
 

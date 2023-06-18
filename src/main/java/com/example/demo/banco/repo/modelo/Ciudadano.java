@@ -2,6 +2,7 @@ package com.example.demo.banco.repo.modelo;
 
 import org.springframework.stereotype.Component;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,7 +31,7 @@ public class Ciudadano {
 	private String cedula;
 
 	
-	@OneToOne(mappedBy = "ciudadano")
+	@OneToOne(mappedBy = "ciudadano",cascade = CascadeType.ALL)
 	//se mapea con el nombre del atributo (ciudadano) que fue nombrado en empleado
 	private Empleado empleado;
 
