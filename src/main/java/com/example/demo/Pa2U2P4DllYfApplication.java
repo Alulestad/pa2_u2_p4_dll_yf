@@ -15,6 +15,7 @@ import com.example.demo.banco.service.ICiudadanoService;
 import com.example.demo.banco.service.IEmpleadoService;
 import com.example.demo.banco.service.IHabitacionService;
 import com.example.demo.banco.service.IHotelService;
+import com.example.demo.banco.service.ILibroService;
 
 @SpringBootApplication
 public class Pa2U2P4DllYfApplication implements CommandLineRunner {
@@ -33,6 +34,9 @@ public class Pa2U2P4DllYfApplication implements CommandLineRunner {
 
 	@Autowired
 	private IAutorService iAutorService;
+	
+	@Autowired
+	private ILibroService iLibroService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(Pa2U2P4DllYfApplication.class, args);
@@ -58,24 +62,27 @@ public class Pa2U2P4DllYfApplication implements CommandLineRunner {
 		l2.setEditorial("Norma");
 		l2.setTitulo("Cuentos 1");
 		
-		Set<Autor> autores= new HashSet<>();
-		autores.add(a1);
-		l1.setAutores(autores);
-		l2.setAutores(autores);
 		
+
 		Set<Libro> libros= new HashSet<>();
 		libros.add(l1);
-		libros.add(l2);
-		
+
 		a1.setLibros(libros);
+		a2.setLibros(libros);
+		
+		Set<Autor> autores= new HashSet<>();
+		autores.add(a1);
+		autores.add(a2);
+		l1.setAutores(autores);
 		
 		
-		this.iAutorService.agregar(a1);
-		a1.setApellido("actualizado");
-		this.iAutorService.actualizar(a1);
-		Autor autor= this.iAutorService.buscarPorId(2);
-		System.out.println(autor);
-		this.iAutorService.borrarPorId(3);
+		this.iLibroService.crear(l1);
+		l1.setEditorial("actualizado");
+		this.iLibroService.actualizar(l1);
+		Libro libro= this.iLibroService.buscarPorId(6);
+		System.out.println(libro);
+		this.iLibroService.borrarPorId(6);
+		
 		
 	}
 

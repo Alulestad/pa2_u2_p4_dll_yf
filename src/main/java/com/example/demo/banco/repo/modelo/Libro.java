@@ -4,6 +4,7 @@ import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,7 +31,7 @@ public class Libro {
 	@Column(name = "libr_editorial")
 	private String editorial;
 
-	@ManyToMany()
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name="autor_libro", 
 	joinColumns= @JoinColumn(name="auli_id_libro"),inverseJoinColumns = @JoinColumn(name="auli_id_autor"))
 	//se inicia haciendo el join column para libro, osea la tabla en la que me encuentro
