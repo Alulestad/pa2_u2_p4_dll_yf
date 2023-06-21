@@ -1,6 +1,9 @@
 package com.example.demo;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,14 +11,18 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.example.demo.banco.repo.modelo.Alumno;
 import com.example.demo.banco.repo.modelo.Autor;
 import com.example.demo.banco.repo.modelo.Libro;
+import com.example.demo.banco.repo.modelo.Materia;
+import com.example.demo.banco.repo.modelo.Matricula;
 import com.example.demo.banco.service.IAutorService;
 import com.example.demo.banco.service.ICiudadanoService;
 import com.example.demo.banco.service.IEmpleadoService;
 import com.example.demo.banco.service.IHabitacionService;
 import com.example.demo.banco.service.IHotelService;
 import com.example.demo.banco.service.ILibroService;
+import com.example.demo.banco.service.IMatriculaService;
 
 @SpringBootApplication
 public class Pa2U2P4DllYfApplication implements CommandLineRunner {
@@ -38,6 +45,10 @@ public class Pa2U2P4DllYfApplication implements CommandLineRunner {
 	@Autowired
 	private ILibroService iLibroService;
 	
+	
+	@Autowired
+	private IMatriculaService iMatriculaService;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(Pa2U2P4DllYfApplication.class, args);
 	}
@@ -46,42 +57,48 @@ public class Pa2U2P4DllYfApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println("Unidad 2");
-		Autor a1= new Autor();
-		a1.setApellido("Lara");
-		a1.setNombre("Jorge");
+		Alumno alumno1= new Alumno();
+		alumno1.setNombre("Daniel Ll");
 		
-		Autor a2= new Autor();
-		a2.setApellido("Cervantes");
-		a2.setNombre("Miguel");
+		Alumno alumno2= new Alumno();
+		alumno2.setNombre("Yaniri F");
 		
-		Libro l1=new Libro();
-		l1.setEditorial("Planeta");
-		l1.setTitulo("Quijote");
+		Alumno alumno3= new Alumno();
+		alumno3.setNombre("Bernardo M");
 		
-		Libro l2=new Libro();
-		l2.setEditorial("Norma");
-		l2.setTitulo("Cuentos 1");
+		Materia materia1= new Materia();
+		materia1.setNombre("Programacion 1");
 		
+		Materia materia2= new Materia();
+		materia2.setNombre("Programacion 2");
 		
+		Materia materia3= new Materia();
+		materia3.setNombre("Programacion 3");
+		
+		Matricula matricula1=new Matricula();
+		matricula1.setFechaMatricula(LocalDateTime.now());
+		matricula1.setNumero("1");
+		
+		Matricula matricula1_2=new Matricula();
+		matricula1_2.setFechaMatricula(LocalDateTime.now());
+		matricula1_2.setNumero("1");
+		
+		matricula1.setAlumno(alumno1);
+		matricula1.setMateria(materia1);
+		
+		matricula1_2.setAlumno(alumno1);
+		matricula1_2.setMateria(materia2);
 
-		Set<Libro> libros= new HashSet<>();
-		libros.add(l1);
-
-		a1.setLibros(libros);
-		a2.setLibros(libros);
+		List<Matricula> matriculas1= new ArrayList<>();
+		matriculas1.add(matricula1);
+		matriculas1.add(matricula1_2);
 		
-		Set<Autor> autores= new HashSet<>();
-		autores.add(a1);
-		autores.add(a2);
-		l1.setAutores(autores);
+		alumno1.setMatriculas(matriculas1);
 		
+		materia1.setMatriculas(matriculas1);
+		materia2.setMatriculas(matriculas1);
 		
-		this.iLibroService.crear(l1);
-		l1.setEditorial("actualizado");
-		this.iLibroService.actualizar(l1);
-		Libro libro= this.iLibroService.buscarPorId(6);
-		System.out.println(libro);
-		this.iLibroService.borrarPorId(6);
+		this.iMatriculaService.guardar(matricula1);
 		
 		
 	}
