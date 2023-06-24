@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,27 +17,17 @@ import com.example.demo.banco.service.IEmpleadoService;
 import com.example.demo.banco.service.IHabitacionService;
 import com.example.demo.banco.service.IHotelService;
 import com.example.demo.banco.service.ILibroService;
+import com.example.demo.matricula.repo.EstudianteRepo;
+import com.example.demo.matricula.repo.modelo.Estudiante;
+import com.example.demo.matricula.service.EstudianteService;
 
 @SpringBootApplication
 public class Pa2U2P4DllYfApplication implements CommandLineRunner {
 
 	@Autowired
-	private ICiudadanoService iCiudadanoService;
+	private EstudianteService estudianteService;
 	
-	@Autowired
-	private IEmpleadoService iEmpleadoService;
-	
-	@Autowired
-	private IHabitacionService iHabitacionService;
-	
-	@Autowired
-	private IHotelService iHotelService;
 
-	@Autowired
-	private IAutorService iAutorService;
-	
-	@Autowired
-	private ILibroService iLibroService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(Pa2U2P4DllYfApplication.class, args);
@@ -46,43 +37,25 @@ public class Pa2U2P4DllYfApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println("Unidad 2");
-		Autor a1= new Autor();
-		a1.setApellido("Lara");
-		a1.setNombre("Jorge");
+		System.out.println("##################QUERY##################");
+		Estudiante estudiante= this.estudianteService.buscarPorApellido("asdfsf");
+		System.out.println(estudiante);
 		
-		Autor a2= new Autor();
-		a2.setApellido("Cervantes");
-		a2.setNombre("Miguel");
+		List<Estudiante> estudiantes1= this.estudianteService.reportePorApellido("Florez");
+		System.out.println("Reporte de estudantes por apellido");
+		for(Estudiante estu:estudiantes1) {
+			System.out.println(estu);
+		}
 		
-		Libro l1=new Libro();
-		l1.setEditorial("Planeta");
-		l1.setTitulo("Quijote");
+		List<Estudiante> estudiantes2= this.estudianteService.reportePorApellidoyNombre("Florez","Yaniry");
+		System.out.println("Reporte de estudantes por apellido y nombre");
+		for(Estudiante estu:estudiantes2) {
+			System.out.println(estu);
+		}
 		
-		Libro l2=new Libro();
-		l2.setEditorial("Norma");
-		l2.setTitulo("Cuentos 1");
-		
-		
-
-		Set<Libro> libros= new HashSet<>();
-		libros.add(l1);
-
-		a1.setLibros(libros);
-		a2.setLibros(libros);
-		
-		Set<Autor> autores= new HashSet<>();
-		autores.add(a1);
-		autores.add(a2);
-		l1.setAutores(autores);
-		
-		
-		this.iLibroService.crear(l1);
-		l1.setEditorial("actualizado");
-		this.iLibroService.actualizar(l1);
-		Libro libro= this.iLibroService.buscarPorId(6);
-		System.out.println(libro);
-		this.iLibroService.borrarPorId(6);
-		
+		System.out.println("##################TYPED QUERY##################");
+		Estudiante estudiante2= this.estudianteService.buscarPorApellidoTyped("asdfsf");
+		System.out.println(estudiante2);
 		
 	}
 
