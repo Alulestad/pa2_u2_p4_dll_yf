@@ -51,10 +51,13 @@ public class SucursalBancoRepoImpl implements ISucursalBancoRepo {
 
 	@Override
 	public SucursalBanco seleccionarPorFechaApertura(LocalDateTime fecha) {
-		Query query=this.entityManager.createQuery("select sb from SucursalBanco sb where "
-				+ "sb.fechaApertura=:datoFechaApertura");
-		query.setParameter("datoFechaApertura", fecha);
+		LocalDateTime fechaFundacion=LocalDateTime.of(1900, 1, 1, 0, 0);
 		
+		
+		Query query=this.entityManager.createQuery("select sb from SucursalBanco sb where "
+				+ "sb.fechaApertura=:datoFechaApertura and sb.fechaApertura>=:datoFechaFundacion");
+		query.setParameter("datoFechaApertura", fecha);
+		query.setParameter("datoFechaFundacion", fechaFundacion);
 		
 		
 		return (SucursalBanco)query.getSingleResult();
@@ -62,29 +65,38 @@ public class SucursalBancoRepoImpl implements ISucursalBancoRepo {
 
 	@Override
 	public List<SucursalBanco> seleccionarTodosPorFechaApertura(LocalDateTime fecha) {
-		Query query=this.entityManager.createQuery("select sb from SucursalBanco sb where "
-				+ "sb.fechaApertura=:datoFechaApertura");
-		query.setParameter("datoFechaApertura", fecha);
+		LocalDateTime fechaFin=LocalDateTime.of(1900, 1, 1, 0, 0);
 		
+		Query query=this.entityManager.createQuery("select sb from SucursalBanco sb where "
+				+ "sb.fechaApertura=:datoFechaApertura and not sb.fechaApertura<=:datoFechaFin");
+		query.setParameter("datoFechaApertura", fecha);
+		query.setParameter("datoFechaFin", fechaFin);
 		return query.getResultList();
 	}
 
 	@Override
 	public SucursalBanco seleccionarPorFechaAperturaTyped(LocalDateTime fecha) {
+		LocalDateTime fechaFundacion=LocalDateTime.of(1900, 1, 1, 0, 0);
+		
 		TypedQuery<SucursalBanco> typedQuery=this.entityManager.createQuery(""
 				+ "select sb from SucursalBanco sb where "
-				+ "sb.fechaApertura=:datoFechaApertura",SucursalBanco.class);
+				+ "sb.fechaApertura=:datoFechaApertura and 	not sb.fechaApertura=:datoFechaFundacion",SucursalBanco.class);
 		typedQuery.setParameter("datoFechaApertura", fecha);
+		typedQuery.setParameter("datoFechaFundacion", fechaFundacion);
 		
 		return typedQuery.getSingleResult();
 	}
 
 	@Override
 	public List<SucursalBanco> seleccionarTodosPorFechaAperturaTyped(LocalDateTime fecha) {
+		LocalDateTime fechaFin=LocalDateTime.of(1900, 1, 1, 0, 0);
+		
 		TypedQuery<SucursalBanco> typedQuery=this.entityManager.createQuery(""
 				+ "select sb from SucursalBanco sb where "
-				+ "sb.fechaApertura=:datoFechaApertura",SucursalBanco.class);
+				+ "sb.fechaApertura=:datoFechaApertura OR sb.fechaApertura<=:datoFechaFin",SucursalBanco.class);
 		typedQuery.setParameter("datoFechaApertura", fecha);
+		typedQuery.setParameter("datoFechaFin", fechaFin);
+		
 		
 		return typedQuery.getResultList();
 	}
