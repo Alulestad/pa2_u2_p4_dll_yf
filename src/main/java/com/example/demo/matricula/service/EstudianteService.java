@@ -22,6 +22,8 @@ public interface EstudianteService {
 	
 	public List<Estudiante> reportePorApellido(String apellido);
 	
+	public Estudiante buscarPorApellidoNamedQuery(String apellido);
+	
 	
 
 }

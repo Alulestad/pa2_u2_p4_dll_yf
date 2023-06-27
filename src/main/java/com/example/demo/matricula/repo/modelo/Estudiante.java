@@ -7,12 +7,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Component
 @Table(name = "estudiante", schema = "public")
 @Entity
+@NamedQuery(name = "Estudiante.buscaPorApellido",query = "select e from Estudiante e where e.apellido=:datoApellido")
 public class Estudiante {
 
 	@Id

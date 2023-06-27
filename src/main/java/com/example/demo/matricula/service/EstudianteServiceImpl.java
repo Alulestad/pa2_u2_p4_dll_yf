@@ -60,4 +60,12 @@ public class EstudianteServiceImpl implements EstudianteService {
 		return this.estudianteRepo.seleccionarListaPorApellidoyNombre(apellido, nombre);
 	}
 
+	@Override
+	public Estudiante buscarPorApellidoNamedQuery(String apellido) {
+		// TODO Auto-generated method stub
+		return this.estudianteRepo.seleccionarPorApellidoNamedQuery(apellido);
+	}
+	
+	
+
 }

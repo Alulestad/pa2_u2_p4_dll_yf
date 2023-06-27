@@ -22,6 +22,8 @@ public interface EstudianteRepo {
 	
 	public List<Estudiante> seleccionarListaPorApellido(String apellido);
 	
+	public Estudiante seleccionarPorApellidoNamedQuery(String apellido);
+	
 	
 
 }

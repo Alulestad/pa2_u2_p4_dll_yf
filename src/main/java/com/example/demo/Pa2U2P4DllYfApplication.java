@@ -2,6 +2,7 @@ package com.example.demo;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,10 +29,17 @@ import com.example.demo.matricula.service.EstudianteService;
 @SpringBootApplication
 public class Pa2U2P4DllYfApplication implements CommandLineRunner {
 
-	@Autowired
-	private ISucursalBancoService iSucursalBancoService;
-	
 
+	@Autowired
+	private ILibroService iLibroService;
+	
+	@Autowired
+	private IAutorService iAutorService;
+	
+	
+	@Autowired
+	private EstudianteService estudianteService;
+	
 	
 	public static void main(String[] args) {
 		SpringApplication.run(Pa2U2P4DllYfApplication.class, args);
@@ -41,28 +49,12 @@ public class Pa2U2P4DllYfApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		System.out.println("Unidad 2");
-		SucursalBanco sucursalBanco1=new SucursalBanco();
-		sucursalBanco1.setDireccion("Amazonas y Patria");
-		sucursalBanco1.setFechaApertura(LocalDateTime.of(1999, 1, 2, 0, 0));
-		sucursalBanco1.setPresupuesto(new BigDecimal(100000));
+		Set<Libro> libros=new HashSet();
 		
-		//this.iSucursalBancoService.guardar(sucursalBanco1);
 		
-		System.out.println("###################Query###################");
-		SucursalBanco encontradoSucursalBanco1= 
-				this.iSucursalBancoService.buscarPorFechaApertura(LocalDateTime.of(1999, 1, 2, 0, 0));
-		System.out.println(encontradoSucursalBanco1);
-		List<SucursalBanco> encontradoSucursalesBanco1=
-				this.iSucursalBancoService.reportePorFechaApertura(LocalDateTime.of(1999, 1, 1, 0, 0));
-		System.out.println(encontradoSucursalesBanco1);
+		Estudiante estudiante= this.estudianteService.buscarPorApellidoNamedQuery("asdfsf");
+		System.out.println(estudiante);
 		
-		System.out.println("###################TypedQuery###################");
-		SucursalBanco encontradoSucursalBanco2= 
-				this.iSucursalBancoService.buscarPorFechaAperturaTyped(LocalDateTime.of(1999, 1, 2, 0, 0));
-		System.out.println(encontradoSucursalBanco2);
-		List<SucursalBanco> encontradoSucursalesBanco2=
-				this.iSucursalBancoService.reporteTodosPorFechaAperturaTyped(LocalDateTime.of(1999, 1, 1, 0, 0));
-		System.out.println(encontradoSucursalesBanco2);
 		
 	}
 
