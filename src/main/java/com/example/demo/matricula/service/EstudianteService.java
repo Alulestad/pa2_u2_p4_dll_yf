@@ -22,8 +22,15 @@ public interface EstudianteService {
 	
 	public List<Estudiante> reportePorApellido(String apellido);
 	
+	public Estudiante buscarPorApellidoNamedTypedQuery(String apellido);
+	
 	public Estudiante buscarPorApellidoNamedQuery(String apellido);
 	
-	
+	public Estudiante buscarPorApellidoNativeQuery(String apellido);
 
+	public Estudiante buscarPorApellidoNamedNativeQuery(String apellido);
+	
+	public Estudiante buscarPorNombreNamedQuery(String nombre);
+	
+	public Estudiante buscarPorNombreNamedNativeQuery(String nombre);
 }

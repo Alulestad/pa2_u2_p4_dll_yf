@@ -51,10 +51,30 @@ public class Pa2U2P4DllYfApplication implements CommandLineRunner {
 		System.out.println("Unidad 2");
 		Set<Libro> libros=new HashSet();
 		
+		System.out.println("Apellido Named Typed Query");
+		Estudiante estudianteNamedTypedQuery= this.estudianteService.buscarPorApellidoNamedTypedQuery("asdfsf");
+		System.out.println(estudianteNamedTypedQuery);
 		
-		Estudiante estudiante= this.estudianteService.buscarPorApellidoNamedQuery("asdfsf");
-		System.out.println(estudiante);
+		System.out.println("Apellido Named Query");
+		Estudiante estudianteNamedQuery= this.estudianteService.buscarPorApellidoNamedQuery("asdfsf");
+		System.out.println(estudianteNamedQuery);
 		
+		System.out.println("Apellido Native Query");
+		Estudiante estudianteNativeQuery= this.estudianteService.buscarPorApellidoNativeQuery("asdfsf");
+		System.out.println(estudianteNativeQuery);
+		
+		System.out.println("Apellido Named Native Query");
+		Estudiante estudianteNamedNativeQuery= this.estudianteService.buscarPorApellidoNamedNativeQuery("asdfsf");
+		System.out.println(estudianteNamedNativeQuery);
+		
+		
+		System.out.println("Nombre Native Query");
+		Estudiante estudianteNombreNamedQuery= this.estudianteService.buscarPorNombreNamedQuery("asdf");
+		System.out.println(estudianteNombreNamedQuery);
+		
+		System.out.println("Nombre Named Native Query");
+		Estudiante estudianteNombreNamedNativeQuery= this.estudianteService.buscarPorNombreNamedNativeQuery("asdf");
+		System.out.println(estudianteNombreNamedNativeQuery);
 		
 	}
 
