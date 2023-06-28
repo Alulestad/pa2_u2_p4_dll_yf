@@ -76,6 +76,10 @@ public class Pa2U2P4DllYfApplication implements CommandLineRunner {
 		Estudiante estudianteNombreNamedNativeQuery= this.estudianteService.buscarPorNombreNamedNativeQuery("asdf");
 		System.out.println(estudianteNombreNamedNativeQuery);
 		
+		System.out.println("Apellido Criteria API Query");
+		Estudiante estudianteApellidoCriteriaAPIQuery= this.estudianteService.buscarPorApellidoCriteriaAPIQuery("asdfsf");
+		System.out.println(estudianteApellidoCriteriaAPIQuery);
+		
 	}
 
 }

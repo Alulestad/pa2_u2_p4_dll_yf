@@ -33,4 +33,6 @@ public interface EstudianteService {
 	public Estudiante buscarPorNombreNamedQuery(String nombre);
 	
 	public Estudiante buscarPorNombreNamedNativeQuery(String nombre);
+	
+	public Estudiante buscarPorApellidoCriteriaAPIQuery(String apellido);
 }
