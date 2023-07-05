@@ -35,5 +35,12 @@ public interface EstudianteRepo {
 	public Estudiante seleccionarPorNombreNamedNativeQuery(String nombre);
 	
 	public Estudiante seleccionarPorApellidoCriteriaAPIQuery(String apellido);
+	
+	//si es mayor a 100 se busca por nombre y apellido caso contrario se busca por alguno de los dos
+	public Estudiante seleccionarEstudianteDinamico(String nombre, String apellido, Double peso);
+	
+	public int eliminarPorNombre(String nombre);
+	
+	public int actualizarPorApellido(String nombre, String apellido);
 
 }

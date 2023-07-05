@@ -168,26 +168,89 @@ public class EstudianteRepoImpl implements EstudianteRepo {
 		CriteriaBuilder myCriteriaBuilder = this.entityManager.getCriteriaBuilder();
 
 		// 1. Especificamos el tipo de retorno que tiene mi query
-		CriteriaQuery<Estudiante> myCriteriaQuery = 
-				myCriteriaBuilder.createQuery(Estudiante.class);
-		
-		//2. Empezamos a declarar el SQL
-		//2.1 Definimos el FROM (root). OBS: el from no necesariamente es igual al tipo de retorno
-		Root<Estudiante> myTablaFrom = myCriteriaQuery.from(Estudiante.class);//from estudiante
+		CriteriaQuery<Estudiante> myCriteriaQuery = myCriteriaBuilder.createQuery(Estudiante.class);
 
-		//3. Construir las condiciones de mi SQL
-		//En Criteria API Query las condiciones se las conoce como Predicado
-		//e.apellido=:datoApelido
+		// 2. Empezamos a declarar el SQL
+		// 2.1 Definimos el FROM (root). OBS: el from no necesariamente es igual al tipo
+		// de retorno
+		Root<Estudiante> myTablaFrom = myCriteriaQuery.from(Estudiante.class);// from estudiante
+
+		// 3. Construir las condiciones de mi SQL
+		// En Criteria API Query las condiciones se las conoce como Predicado
+		// e.apellido=:datoApelido
 		Predicate condicionApellido = myCriteriaBuilder.equal(myTablaFrom.get("apellido"), apellido);
 
-		//4. Armamos mi SQL final 
+		// 4. Armamos mi SQL final
 		myCriteriaQuery.select(myTablaFrom).where(condicionApellido);
 
-		
-		//5. La ejecucion del Query lo realizamos con TypedQuery
-		TypedQuery<Estudiante> myTypedQuery= this.entityManager.createQuery(myCriteriaQuery);
-		
+		// 5. La ejecucion del Query lo realizamos con TypedQuery
+		TypedQuery<Estudiante> myTypedQuery = this.entityManager.createQuery(myCriteriaQuery);
+
 		return myTypedQuery.getSingleResult();
+	}
+
+	@Override
+	public Estudiante seleccionarEstudianteDinamico(String nombre, String apellido, Double peso) {
+
+		CriteriaBuilder myConstructor = this.entityManager.getCriteriaBuilder();
+		// 1. Especificamos el tipo de retorno que tiene mi query
+		CriteriaQuery<Estudiante> myQuery = myConstructor.createQuery(Estudiante.class);
+		// 2. Empezamos a declarar el SQL
+		// 2.1 Definimos el FROM (root). OBS: el from no necesariamente es igual al tipo
+		// de retorno
+		Root<Estudiante> myTablaFrom = myQuery.from(Estudiante.class);
+
+		// 3. Construir las condiciones de mi SQL
+		// >100 e.nombre=? and e.apellido=?
+		// <=100 e.nombre=? or e.apellido=?
+
+		// e.nombre=?
+		Predicate pNombre = myConstructor.equal(myTablaFrom.get("nombre"), nombre);
+
+		// e.apellido=?
+		Predicate pApellido = myConstructor.equal(myTablaFrom.get("apellido"), apellido);
+
+		Predicate predicadoFinal = null;
+		if (peso.compareTo(Double.valueOf(100)) <= 0) {
+			predicadoFinal = myConstructor.or(pNombre, pApellido);
+		} else {
+			predicadoFinal = myConstructor.and(pNombre, pApellido);
+		}
+
+		// 4. Armamos mi SQL final
+		myQuery.select(myTablaFrom).where(predicadoFinal);
+
+		// 5. La ejecucion del Query lo realizamos con TypedQuery
+		TypedQuery<Estudiante> myTypedQuery = this.entityManager.createQuery(myQuery);
+
+		return myTypedQuery.getSingleResult();
+	}
+
+	@Override
+	public int eliminarPorNombre(String nombre) {
+		// delete from estudiante e where e.estu_nombre=?
+		// delete from Estudiante e where e.nombre=:datoNombre
+		Query myQuery = this.entityManager.createQuery("delete from Estudiante e where e.nombre=:datoNombre");
+		myQuery.setParameter("datoNombre", nombre);
+
+		return myQuery.executeUpdate(); // Numero de registros afectados, esta devolucion tambien se ve en el postgres
+
+	}
+
+	@Override
+	public int actualizarPorApellido(String nombre, String apellido) {
+		// SQL
+		// update estudiante set estu_nombre=? where estu_apellido=?
+		// JPQL
+		// update Estudiante e set e.nombre=:datoNombre where e.apellido=:datoApellido
+
+		Query myQuery = this.entityManager.createQuery(""
+				+ "update Estudiante e set e.nombre=:datoNombre where e.apellido=:datoApellido");
+		myQuery.setParameter("datoNombre", nombre);
+		myQuery.setParameter("datoApellido", apellido);
+
+		return myQuery.executeUpdate(); // Numero de registros afectados, esta devolucion tambien se ve en el postgres
+
 	}
 
 }

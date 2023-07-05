@@ -26,8 +26,6 @@ import jakarta.persistence.Table;
 		@NamedNativeQuery(name = "Estudiante.buscarPorApellidoNative", query = "select * from estudiante e where e.estu_apellido=:datoApellido", resultClass = Estudiante.class),
 		@NamedNativeQuery(name = "Estudiante.buscarPorNombreNative", query = "select * from estudiante e where e.estu_nombre=:datoNombre", resultClass = Estudiante.class) })
 
-
-
 public class Estudiante {
 
 	@Id
@@ -45,9 +43,13 @@ public class Estudiante {
 	private String nombre;
 	@Column(name = "estu_apellido")
 	private String apellido;
-
+	@Column(name = "estu_peso")
+	private Double peso;
+	
+	
+	
+	
 	// gets y sets
-
 	public String getCedula() {
 		return cedula;
 	}
@@ -76,10 +78,22 @@ public class Estudiante {
 		this.apellido = apellido;
 	}
 
+	public Double getPeso() {
+		return peso;
+	}
+
+	public void setPeso(Double peso) {
+		this.peso = peso;
+	}
+
+	public void setEstu_id(Integer estu_id) {
+		this.estu_id = estu_id;
+	}
+
 	@Override
 	public String toString() {
 		return "Estudiante [estu_id=" + estu_id + ", cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido
-				+ "]";
+				+ ", peso=" + peso + "]";
 	}
 
 }

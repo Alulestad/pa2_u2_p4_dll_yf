@@ -29,18 +29,15 @@ import com.example.demo.matricula.service.EstudianteService;
 @SpringBootApplication
 public class Pa2U2P4DllYfApplication implements CommandLineRunner {
 
-
 	@Autowired
 	private ILibroService iLibroService;
-	
+
 	@Autowired
 	private IAutorService iAutorService;
-	
-	
+
 	@Autowired
 	private EstudianteService estudianteService;
-	
-	
+
 	public static void main(String[] args) {
 		SpringApplication.run(Pa2U2P4DllYfApplication.class, args);
 	}
@@ -48,37 +45,19 @@ public class Pa2U2P4DllYfApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		System.out.println("Unidad 2");
-		Set<Libro> libros=new HashSet();
+		Estudiante estudiante1 = this.estudianteService.buscarEstudianteDinamico("asdf", "asdfsf", Double.valueOf(200));
+
+		System.out.println(estudiante1);
+
+		Estudiante estudiante2 = this.estudianteService.buscarEstudianteDinamico("asdf", "asdfsf", Double.valueOf(100));
+
+		System.out.println(estudiante2);
 		
-		System.out.println("Apellido Named Typed Query");
-		Estudiante estudianteNamedTypedQuery= this.estudianteService.buscarPorApellidoNamedTypedQuery("asdfsf");
-		System.out.println(estudianteNamedTypedQuery);
+		int nActualizados= this.estudianteService.actualizarPorApellido("nombre2", "apellido1");
+		System.out.println("Numero de actualizados: "+nActualizados);
+		int nEliminados= this.estudianteService.eliminarPorNombre("nombre2");
+		System.out.println("Numero de eliminados: "+nEliminados);
 		
-		System.out.println("Apellido Named Query");
-		Estudiante estudianteNamedQuery= this.estudianteService.buscarPorApellidoNamedQuery("asdfsf");
-		System.out.println(estudianteNamedQuery);
-		
-		System.out.println("Apellido Native Query");
-		Estudiante estudianteNativeQuery= this.estudianteService.buscarPorApellidoNativeQuery("asdfsf");
-		System.out.println(estudianteNativeQuery);
-		
-		System.out.println("Apellido Named Native Query");
-		Estudiante estudianteNamedNativeQuery= this.estudianteService.buscarPorApellidoNamedNativeQuery("asdfsf");
-		System.out.println(estudianteNamedNativeQuery);
-		
-		
-		System.out.println("Nombre Native Query");
-		Estudiante estudianteNombreNamedQuery= this.estudianteService.buscarPorNombreNamedQuery("asdf");
-		System.out.println(estudianteNombreNamedQuery);
-		
-		System.out.println("Nombre Named Native Query");
-		Estudiante estudianteNombreNamedNativeQuery= this.estudianteService.buscarPorNombreNamedNativeQuery("asdf");
-		System.out.println(estudianteNombreNamedNativeQuery);
-		
-		System.out.println("Apellido Criteria API Query");
-		Estudiante estudianteApellidoCriteriaAPIQuery= this.estudianteService.buscarPorApellidoCriteriaAPIQuery("asdfsf");
-		System.out.println(estudianteApellidoCriteriaAPIQuery);
 		
 	}
 
