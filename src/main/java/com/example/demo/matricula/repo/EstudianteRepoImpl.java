@@ -1,11 +1,11 @@
 package com.example.demo.matricula.repo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.matricula.repo.modelo.Estudiante;
+import com.example.demo.matricula.repo.modelo.dto.EstudianteDTO;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -244,13 +244,21 @@ public class EstudianteRepoImpl implements EstudianteRepo {
 		// JPQL
 		// update Estudiante e set e.nombre=:datoNombre where e.apellido=:datoApellido
 
-		Query myQuery = this.entityManager.createQuery(""
-				+ "update Estudiante e set e.nombre=:datoNombre where e.apellido=:datoApellido");
+		Query myQuery = this.entityManager
+				.createQuery("" + "update Estudiante e set e.nombre=:datoNombre where e.apellido=:datoApellido");
 		myQuery.setParameter("datoNombre", nombre);
 		myQuery.setParameter("datoApellido", apellido);
 
 		return myQuery.executeUpdate(); // Numero de registros afectados, esta devolucion tambien se ve en el postgres
 
+	}
+
+	@Override
+	public List<EstudianteDTO> seleccionarTodosDTO() {
+		TypedQuery<EstudianteDTO> myQuery = this.entityManager
+				.createQuery("select new com.example.demo.matricula.repo.modelo.dto.EstudianteDTO(e.nombre,e.apellido) "
+						+ "from Estudiante e", EstudianteDTO.class);
+		return myQuery.getResultList();
 	}
 
 }
