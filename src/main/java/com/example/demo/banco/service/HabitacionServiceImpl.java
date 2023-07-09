@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.banco.repo.IHabitacionRepo;
 import com.example.demo.banco.repo.modelo.Habitacion;
+import com.example.demo.banco.repo.modelo.dto.HabitacionesDTOIdHotel;
 
 @Service
 public class HabitacionServiceImpl implements IHabitacionService {
@@ -33,4 +34,11 @@ public class HabitacionServiceImpl implements IHabitacionService {
 		this.iHabitacionRepo.eliminarPorId(id);
 	}
 
+	@Override
+	public HabitacionesDTOIdHotel reporteNumeroHabitacionesPorIDHotel(Integer id) {
+		// TODO Auto-generated method stub
+		return this.iHabitacionRepo.seleccionarTodosNumeroHabitacionesPorIDHotel(id);
+	}
+
+	
 }

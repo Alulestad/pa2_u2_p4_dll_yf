@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.example.demo.banco.repo.modelo.Hotel;
 import com.example.demo.banco.repo.modelo.dto.HotelDTO;
-import com.example.demo.banco.repo.modelo.dto.HotelDTOHabitaciones;
+import com.example.demo.banco.repo.modelo.dto.HabitacionesDTOIdHotel;
 
 public interface IHotelService {
 
@@ -19,5 +19,5 @@ public interface IHotelService {
 	
 	public HotelDTO buscarPorIdDTO(Integer id);
 	
-	public Hotel buscarHabitacionesPorIdDTO(Integer id);
+	public Hotel buscarHabitacionesPorId(Integer id);
 }

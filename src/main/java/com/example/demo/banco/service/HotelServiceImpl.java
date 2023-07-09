@@ -8,7 +8,7 @@ import com.example.demo.banco.repo.IHotelRepo;
 import com.example.demo.banco.repo.modelo.Habitacion;
 import com.example.demo.banco.repo.modelo.Hotel;
 import com.example.demo.banco.repo.modelo.dto.HotelDTO;
-import com.example.demo.banco.repo.modelo.dto.HotelDTOHabitaciones;
+import com.example.demo.banco.repo.modelo.dto.HabitacionesDTOIdHotel;
 
 @Service
 public class HotelServiceImpl implements IHotelService {
@@ -44,9 +44,9 @@ public class HotelServiceImpl implements IHotelService {
 	}
 
 	@Override
-	public Hotel buscarHabitacionesPorIdDTO(Integer id) {
+	public Hotel buscarHabitacionesPorId(Integer id) {
 		// TODO Auto-generated method stub
-		return this.iHotelRepo.seleccionarHabitacionesPorIdDTO(id);
+		return this.iHotelRepo.seleccionarHabitacionesPorId(id);
 	}
 
 	

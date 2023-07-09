@@ -8,9 +8,12 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.banco.repo.modelo.Habitacion;
+import com.example.demo.banco.repo.modelo.dto.HabitacionesDTOIdHotel;
+import com.example.demo.banco.repo.modelo.dto.HotelDTO;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 @Repository
@@ -42,5 +45,16 @@ public class HabitacionRepoImpl implements IHabitacionRepo {
 		Habitacion habitacion = this.seleccionarPorId(id);
 		this.entityManager.remove(habitacion);
 	}
+
+	@Override
+	public HabitacionesDTOIdHotel seleccionarTodosNumeroHabitacionesPorIDHotel(Integer id) {
+		TypedQuery<HabitacionesDTOIdHotel> myQuery=this.entityManager.createQuery(""
+				+ "select new com.example.demo.banco.repo.modelo.dto.HabitacionesDTOIdHotel(ha.numero) "
+				+ "from Habitacion ha where ha.hotel.id=:datoId",HabitacionesDTOIdHotel.class);	
+		myQuery.setParameter("datoId", id);
+		return myQuery.getSingleResult();
+	}
+	
+	
 
 }

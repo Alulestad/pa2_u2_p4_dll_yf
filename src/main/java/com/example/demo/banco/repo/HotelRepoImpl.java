@@ -1,14 +1,11 @@
 package com.example.demo.banco.repo;
 
-import java.util.List;
-
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.banco.repo.modelo.Hotel;
 import com.example.demo.banco.repo.modelo.dto.HotelDTO;
-import com.example.demo.banco.repo.modelo.dto.HotelDTOHabitaciones;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -48,17 +45,18 @@ public class HotelRepoImpl implements IHotelRepo {
 	public HotelDTO seleccionarPorIdDTO(Integer id) {
 		TypedQuery<HotelDTO> myQuery=this.entityManager.createQuery(""
 				+ "select new com.example.demo.banco.repo.modelo.dto.HotelDTO(h.nombre) "
-				+ "from Hotel h",HotelDTO.class);	
-		
+				+ "from Hotel h where h.id=:datoId",HotelDTO.class);	
+		myQuery.setParameter("datoId", id);
 		return myQuery.getSingleResult();
 	}
 
 	@Override
-	public Hotel seleccionarHabitacionesPorIdDTO(Integer id) {
+	public Hotel seleccionarHabitacionesPorId(Integer id) {
 		TypedQuery<Hotel> myQuery=this.entityManager.createQuery(""
 				+ "select h "
-				+ "from Hotel h",Hotel.class);	
-
+				+ "from Hotel h where h.id=:datoId",Hotel.class);	
+		myQuery.setParameter("datoId", id);
+		
 		myQuery.getSingleResult().getHabitaciones().size();//demanda
 
 		return myQuery.getSingleResult();
