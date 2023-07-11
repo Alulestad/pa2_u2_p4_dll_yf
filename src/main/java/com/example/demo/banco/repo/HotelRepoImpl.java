@@ -43,25 +43,27 @@ public class HotelRepoImpl implements IHotelRepo {
 
 	@Override
 	public HotelDTO seleccionarPorIdDTO(Integer id) {
-		TypedQuery<HotelDTO> myQuery=this.entityManager.createQuery(""
-				+ "select new com.example.demo.banco.repo.modelo.dto.HotelDTO(h.nombre) "
-				+ "from Hotel h where h.id=:datoId",HotelDTO.class);	
+		TypedQuery<HotelDTO> myQuery = this.entityManager
+				.createQuery("" + "select new com.example.demo.banco.repo.modelo.dto.HotelDTO(h.nombre) "
+						+ "from Hotel h where h.id=:datoId", HotelDTO.class);
 		myQuery.setParameter("datoId", id);
 		return myQuery.getSingleResult();
 	}
 
 	@Override
 	public Hotel seleccionarHabitacionesPorId(Integer id) {
-		TypedQuery<Hotel> myQuery=this.entityManager.createQuery(""
-				+ "select h "
-				+ "from Hotel h where h.id=:datoId",Hotel.class);	
+		TypedQuery<Hotel> myQuery = this.entityManager.createQuery("" + "select h " + "from Hotel h where h.id=:datoId",
+				Hotel.class);
 		myQuery.setParameter("datoId", id);
-		
-		myQuery.getSingleResult().getHabitaciones().size();//demanda
+
+		//myQuery.getSingleResult().getHabitaciones().size();// demanda
+		myQuery.getSingleResult().getHabitaciones().forEach(v -> {
+			v.getId();
+			v.getNumero();
+			v.getValor();
+		});
 
 		return myQuery.getSingleResult();
 	}
 
-	
-	
 }
